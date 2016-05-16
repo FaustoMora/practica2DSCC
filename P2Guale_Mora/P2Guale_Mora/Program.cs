@@ -38,7 +38,23 @@ namespace P2Guale_Mora
             Debug.Print("Program Started");
             camera.CameraConnected += camera_CameraConnected;
             camera.BitmapStreamed += camera_BitmapStreamed;
-           
+            button.ButtonPressed += button_ButtonPressed;
+            camera.PictureCaptured += camera_PictureCaptured;
+            
+            
+        }
+
+        void camera_PictureCaptured(Camera sender, GT.Picture e)
+        {
+            button.TurnLedOn();
+            sdCard.StorageDevice.WriteFile("foto.bmp",e.PictureData);
+            button.TurnLedOff();
+        }
+
+        void button_ButtonPressed(Button sender, Button.ButtonState state)
+        {
+            camera.StopStreaming();
+            camera.TakePicture();
             
         }
 
