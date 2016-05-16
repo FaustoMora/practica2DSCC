@@ -52,11 +52,13 @@ namespace P2Guale_Mora {
         }
         
         private void InitializeModules() {
-            this.button = new GTM.GHIElectronics.Button(11);
             this.camera = new GTM.GHIElectronics.Camera(3);
+            this.button = new GTM.GHIElectronics.Button(11);
+            
             this.displayT35 = new GTM.GHIElectronics.DisplayT35(14, 13, 12, 10);
             this.usbClientDP = new GTM.GHIElectronics.USBClientDP(1);
             this.sdCard = new GTM.GHIElectronics.SDCard(5);
+            
         }
     }
 }

@@ -17,6 +17,7 @@ namespace P2Guale_Mora
 {
     public partial class Program
     {
+        GT.Timer timer;
         // This method is run when the mainboard is powered up or reset.   
         void ProgramStarted()
         {
@@ -40,7 +41,11 @@ namespace P2Guale_Mora
             camera.BitmapStreamed += camera_BitmapStreamed;
             button.ButtonPressed += button_ButtonPressed;
             camera.PictureCaptured += camera_PictureCaptured;
-            
+           timer = new GT.Timer(1500,GT.Timer.BehaviorType.RunOnce); // Create a timer
+           timer.Tick += timer_Tick; // Run the method timer_tick when the timer ticks
+
+            camera.StartStreaming();
+         
             
         }
 
@@ -49,13 +54,22 @@ namespace P2Guale_Mora
             button.TurnLedOn();
             sdCard.StorageDevice.WriteFile("foto.bmp",e.PictureData);
             button.TurnLedOff();
+            Debug.Print("captured");
+            timer.Start(); // Start the timer
+      
+        }
+
+        private void timer_Tick(GT.Timer timer)
+        {
+            camera.StartStreaming();
+            Debug.Print("timer");
         }
 
         void button_ButtonPressed(Button sender, Button.ButtonState state)
         {
             camera.StopStreaming();
             camera.TakePicture();
-            
+            Debug.Print("button pressed");
         }
 
         void camera_CameraConnected(Camera sender, EventArgs e)
