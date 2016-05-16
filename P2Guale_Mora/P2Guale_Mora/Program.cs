@@ -36,7 +36,24 @@ namespace P2Guale_Mora
 
             // Use Debug.Print to show messages in Visual Studio's "Output" window during debugging.
             Debug.Print("Program Started");
+            camera.CameraConnected += camera_CameraConnected;
+            camera.BitmapStreamed += camera_BitmapStreamed;
+           
+            
+        }
 
+        void camera_CameraConnected(Camera sender, EventArgs e)
+        {
+            camera.StartStreaming();
+            Debug.Print("start streaming callback");
+        }
+
+        void camera_BitmapStreamed(Camera sender, Bitmap e)
+        {
+            //sender.StartStreaming();
+            displayT35.SimpleGraphics.DisplayImage(e, 0, 0);
+            //currentBitmapData = e;
+            Debug.Print("Funcioooon callback");
         }
     }
 }
